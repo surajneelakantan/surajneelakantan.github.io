@@ -1,0 +1,131 @@
+<!-- ═══════════════════════════════════════════════════════════
+     sections/hero.html
+     Edit: tagline · name · description · stats · affiliations
+     Photo: delete avatar-initials line, uncomment <img> line
+════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <style>
+    #hero {
+      background: var(--bg);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+
+    .hero-left {
+      padding: 4rem 4rem 4rem 6rem;
+      display: flex; flex-direction: column; justify-content: center;
+      height: 100%;
+    }
+    .hero-tag {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 4.5vw, 5rem);
+      line-height: 1.05; letter-spacing: -.02em; margin-bottom: 1.4rem;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1rem; line-height: 1.75; color: var(--muted);
+      max-width: 420px; margin-bottom: 2rem; font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+    .hero-cv-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--font-mono); font-size: .73rem;
+      color: var(--muted); transition: color .2s;
+    }
+    .hero-cv-link:hover { color: var(--accent); }
+
+    /* Right dark panel */
+    .hero-right {
+      background: var(--dark); position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; height: 100%;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 40px,
+        rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px);
+    }
+    .hero-card { position: relative; z-index: 1; padding: 2.5rem; text-align: center; }
+
+    /* ── YOUR PHOTO ────────────────────────────────────────────
+       1. Put photo.png in the root folder (next to index.html)
+       2. Delete: <span class="avatar-initials">SN</span>
+       3. Uncomment the <img> line below
+    ──────────────────────────────────────────────────────────── */
+    .avatar-wrap {
+      width: 140px; height: 140px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.25);
+      margin: 0 auto 1.8rem; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 6px rgba(255,255,255,.08);
+    }
+    /*.avatar-initials { font-family: var(--font-head); font-size: 2.8rem; color: white; }*/
+
+    .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2rem; }
+    .stat-num   { font-family: var(--font-head); font-size: 1.9rem; color: white; display: block; }
+    .stat-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+
+    .hero-affil        { margin-top: 1.8rem; font-size: .76rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+    .hero-affil strong { color: white; display: block; font-size: .83rem; }
+
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; overflow-y: auto; }
+      .hero-left { padding: 2rem 1.5rem; min-height: 55vh; }
+      .hero-right { min-height: 45vh; }
+    }
+  </style>
+
+  <div class="hero-left">
+    <div class="hero-tag">PhD Candidate · Örebro University · 2026</div>
+    <h1>Suraj<br><em>Neelakantan</em></h1>
+    <p class="hero-desc">
+      Deep learning researcher at the intersection of geology, computer vision,
+      and machine learning. Building intelligent systems that see beneath the
+      surface of geological data.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn btn-dark" onclick="showSection('publications')">View Publications</button>
+      <button class="btn btn-outline" onclick="showSection('contact')">Get in Touch</button>
+      <a href="Suraj_Neelakantan_CV.pdf" download class="hero-cv-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="avatar-wrap">
+        <span class="avatar-initials">SN</span>
+        <img src="me.jpeg" alt="Suraj Neelakantan, PhD candidate at Örebro University, professional headshot" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Papers</span></div>
+        <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Years</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Themes</span></div>
+      </div>
+      <div class="hero-affil">
+        <strong>Örebro University &amp; Orexplore AB</strong>
+        Industrial PhD · Computer Science<br/>
+        Supervisors: Prof. Amy Loutfi &amp; Dr. Martin Längkvist
+      </div>
+      <div class="status-badge dark" style="margin-top:1.4rem;">
+        <span class="status-dot"></span>
+        Defense: June 2026
+      </div>
+    </div>
+  </div>
+</section>

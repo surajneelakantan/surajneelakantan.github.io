@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suraj Neelakantan — Deep Learning Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+       Each button calls showSection('section-id')
+       To add a nav item → copy one <button> and match the id
+       to the id on your section in its HTML file.
+  ═══════════════════════════════════════════════════════════ -->
+  <nav>
+    <span class="nav-logo" onclick="showSection('hero')">Suraj Neelakantan</span>
+
+    <div class="nav-links">
+      <button onclick="showSection('hero')"               class="active">Home</button>
+      <button onclick="showSection('about')"              class="hide-mobile">About</button>
+      <button onclick="showSection('research')"       class="hide-mobile">Research</button>
+      <button onclick="showSection('projects-teaching')"  class="hide-mobile">Projects &amp; Teaching</button>
+      <button onclick="showSection('experience')"         class="hide-mobile">Experience</button>
+      <button onclick="showSection('contact')"            class="hide-mobile">Contact</button>
+      <button onclick="showSection('blog')"               class="hide-mobile">Blog</button>
+
+      <!-- CV download — update filename to match your PDF -->
+      <a href="Suraj_Neelakantan.pdf" download class="nav-cv">↓ CV</a>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE CONTAINER  — all sections live here.
+       Only one section is visible at a time (class="active").
+       Sections load from their individual files via fetch().
+  ═══════════════════════════════════════════════════════════ -->
+  <div id="page-container">
+    <div id="include-hero"></div>
+    <div id="include-about"></div>
+    <div id="include-research"></div>
+    <div id="include-projects-teaching"></div>
+    <div id="include-experience"></div>
+    <div id="include-contact"></div>
+    <div id="include-blog"></div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER — always visible at the bottom
+       Edit: year and city
+  ═══════════════════════════════════════════════════════════ -->
+  <footer id="site-footer">
+    <span>© 2026 Suraj Neelakantan</span>
+    <span>Örebro, Sweden</span>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPT — no need to edit this.
+       It loads section files and handles click navigation.
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Section file map ──────────────────────────────────────
+    // Each entry: { id: 'section-id', file: 'path/to/file.html' }
+    const SECTIONS = [
+      { id: 'hero',              file: 'sections/hero.html'              },
+      { id: 'about',             file: 'sections/about.html'             },
+      { id: 'research',          file: 'sections/research.html'      },
+      { id: 'projects-teaching', file: 'sections/projects-teaching.html' },
+      { id: 'experience',        file: 'sections/experience.html'        },
+      { id: 'contact',           file: 'sections/contact.html'           },
+      { id: 'blog',              file: 'sections/blog.html'              },
+    ];
+
+    // ── showSection ───────────────────────────────────────────
+    // Called by every nav button. Shows the requested section,
+    // hides all others, and updates the active nav button.
+    function showSection(id) {
+      // Hide all sections
+      document.querySelectorAll('#page-container section').forEach(s => {
+        s.classList.remove('active');
+      });
+
+      // Show the requested section
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+        target.scrollTop = 0;   // always start at top of section
+      }
+
+      // Update active nav button
+      document.querySelectorAll('.nav-links button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick')?.includes(`'${id}'`)) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // ── Load section files ────────────────────────────────────
+    // Fetches each HTML file and injects it into its placeholder.
+    // After all sections load, shows 'hero' as the first page.
+    Promise.all(
+      SECTIONS.map(({ id, file }) =>
+        fetch(file)
+          .then(r => {
+            if (!r.ok) throw new Error(`Could not load ${file}`);
+            return r.text();
+          })
+          .then(html => {
+            document.getElementById(`include-${id}`).innerHTML = html;
+          })
+          .catch(err => console.warn(err.message))
+      )
+    ).then(() => {
+      // Show hero as the landing page once everything is loaded
+      showSection('hero');
+    });
+  </script>
+
+</body>
+</html>

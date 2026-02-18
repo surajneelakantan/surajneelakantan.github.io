@@ -1,0 +1,470 @@
+<!-- ═══════════════════════════════════════════════════════════
+     sections/blog.html
+     Blog cards with MODAL POPUPS for full post reading.
+
+     ── HOW TO ADD A BLOG POST ──────────────────────────────────
+     Step 1: Add a CARD in the .blog-grid
+             Copy a <!-- BLOG POST START --> block.
+             Set onclick="openModal('modal-4')"  ← pick a unique id
+
+     Step 2: Add a MODAL at the bottom of this file.
+             Copy a <!-- MODAL START --> block.
+             Give it the matching id="modal-4"
+
+     Step 3: Fill in both:
+             Card  → category, date, title, excerpt
+             Modal → category, title, date, full post text
+
+     ── WRITING THE FULL POST INSIDE A MODAL ────────────────────
+     Use these tags inside .modal-content-body:
+       <p>paragraph</p>
+       <h3>subheading</h3>
+       <blockquote>highlighted pull quote</blockquote>
+       <img src="filename.png" alt="description">
+     ────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════ -->
+<section id="blog">
+  <style>
+
+    /* ── Section ─────────────────────────────────────────────── */
+    #blog { background: var(--dark); color: white; }
+
+    .blog-eyebrow {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      display: flex; align-items: center; gap: .75rem; margin-bottom: .9rem;
+    }
+    .blog-eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,.3); }
+    #blog h2 { color: white; margin-bottom: .4rem; }
+
+    .blog-tagline {
+      font-family: var(--font-head); font-style: italic;
+      font-size: 1.1rem; color: rgba(255,255,255,.38);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Cards ───────────────────────────────────────────────── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .blog-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 6px; overflow: hidden; display: flex; flex-direction: column;
+      transition: background .25s, transform .25s;
+    }
+    .blog-card:hover { background: rgba(255,255,255,.1); transform: translateY(-3px); }
+
+    /* Card photo — change 180px to resize */
+    .blog-img {
+      width: 100%; height: 180px; overflow: hidden;
+      position: relative; background: rgba(255,255,255,.05);
+    }
+    .blog-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .blog-category {
+      position: absolute; top: .9rem; left: .9rem;
+      font-family: var(--font-mono); font-size: .62rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--accent); color: white;
+      padding: .22rem .6rem; border-radius: 2px;
+    }
+    .blog-body    { padding: 1.3rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-meta    { font-family: var(--font-mono); font-size: .68rem; color: rgba(255,255,255,.35); margin-bottom: .5rem; }
+    .blog-title   { font-family: var(--font-head); font-size: 1.05rem; line-height: 1.35; color: white; margin-bottom: .55rem; }
+    .blog-excerpt { font-size: .85rem; line-height: 1.65; color: rgba(255,255,255,.48); flex: 1; }
+
+    /* Read more button */
+    .blog-read-more {
+      display: inline-flex; align-items: center; gap: .3rem; margin-top: 1rem;
+      font-size: .75rem; font-family: var(--font-mono); font-weight: 500;
+      color: var(--accent); background: none; border: none;
+      cursor: pointer; padding: 0;
+    }
+    .blog-read-more:hover { text-decoration: underline; opacity: .8; }
+
+    .blog-card.placeholder {
+      border-style: dashed; background: transparent; min-height: 240px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: .75rem;
+      letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.18);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       MODAL STYLES
+    ═══════════════════════════════════════════════════════════ */
+
+    /* Dark overlay behind the modal */
+    .blog-modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.78); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      /* Hidden by default */
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .blog-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* The modal box itself */
+    .modal-box {
+      background: var(--bg); color: var(--ink);
+      border-radius: 8px; width: 100%; max-width: 700px;
+      max-height: 88vh; display: flex; flex-direction: column;
+      box-shadow: 0 24px 80px rgba(0,0,0,.4);
+      transform: translateY(18px);
+      transition: transform .3s ease;
+      overflow: hidden;
+    }
+    .blog-modal-overlay.open .modal-box { transform: translateY(0); }
+
+    /* Modal header: title + close button */
+    .modal-header {
+      padding: 1.8rem 2rem 1.3rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      flex-shrink: 0;
+    }
+    .modal-header-left { flex: 1; }
+    .modal-post-category {
+      font-family: var(--font-mono); font-size: .65rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .4rem;
+    }
+    .modal-post-title {
+      font-family: var(--font-head); font-size: 1.45rem; line-height: 1.25; margin-bottom: .4rem;
+    }
+    .modal-post-meta {
+      font-family: var(--font-mono); font-size: .7rem; color: var(--muted);
+    }
+
+    /* × close button */
+    .modal-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.3rem; color: var(--muted); line-height: 1;
+      padding: .25rem .45rem; border-radius: 3px; flex-shrink: 0;
+      transition: background .15s, color .15s;
+    }
+    .modal-close:hover { background: var(--border); color: var(--ink); }
+
+    /* Scrollable post body */
+    .modal-content-body {
+      padding: 2rem; overflow-y: auto; flex: 1;
+      font-size: .95rem; line-height: 1.85; color: #3a3530;
+    }
+    .modal-content-body::-webkit-scrollbar { width: 4px; }
+    .modal-content-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Post typography */
+    .modal-content-body p          { margin-bottom: 1.2rem; }
+    .modal-content-body h3         { font-family: var(--font-head); font-size: 1.15rem; margin: 1.8rem 0 .6rem; }
+    .modal-content-body blockquote {
+      border-left: 3px solid var(--accent); margin: 1.5rem 0;
+      padding: .8rem 1.2rem; background: var(--bg-alt);
+      font-family: var(--font-head); font-style: italic;
+      font-size: 1.02rem; color: var(--muted);
+    }
+    .modal-content-body img { width: 100%; border-radius: 4px; margin: 1.5rem 0; }
+
+  </style>
+
+
+  <!-- Section heading -->
+  <div class="blog-eyebrow">Personal Writing</div>
+  <h2>Blog</h2>
+  <p class="blog-tagline">"Writing about everything and anything."</p>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       BLOG CARDS
+  ════════════════════════════════════════════════════════════ -->
+  <div class="blog-grid">
+
+    <!-- ══ BLOG POST START ══════════════════════════════════════ -->
+    <div class="blog-card">
+      <div class="blog-img">
+        <img src="blog1.png" alt="Blog post photo" />
+        <span class="blog-category">Research</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">January 2026 &nbsp;·&nbsp; 5 min read</div>
+        <div class="blog-title">What does it actually mean to "adapt" a neural network to a new domain?</div>
+        <p class="blog-excerpt">
+          Domain adaptation sounds simple — train on one dataset, deploy on another.
+          The gap between synthetic drill-core images and real scanner data taught me
+          it's far messier than any textbook lets on…
+        </p>
+        <button class="blog-read-more" onclick="openModal('modal-1')">Read more ↗</button>
+      </div>
+    </div>
+    <!-- ══ BLOG POST END ════════════════════════════════════════ -->
+
+    <!-- ══ BLOG POST START ══════════════════════════════════════ -->
+    <div class="blog-card">
+      <div class="blog-img">
+        <img src="blog2.png" alt="Blog post photo" />
+        <span class="blog-category">Life &amp; PhD</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">December 2025 &nbsp;·&nbsp; 4 min read</div>
+        <div class="blog-title">Five things nobody tells you about doing an industrial PhD</div>
+        <p class="blog-excerpt">
+          Splitting time between a university lab and a tech company sounds ideal.
+          The reality involves calendar Tetris, two sets of deadlines, and the
+          occasional existential question of who you actually work for…
+        </p>
+        <button class="blog-read-more" onclick="openModal('modal-2')">Read more ↗</button>
+      </div>
+    </div>
+    <!-- ══ BLOG POST END ════════════════════════════════════════ -->
+
+    <!-- ══ BLOG POST START ══════════════════════════════════════ -->
+    <div class="blog-card">
+      <div class="blog-img" style="background:#3d5166; display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:var(--font-head); font-size:2.2rem; color:rgba(255,255,255,.1);">Geol.</span>
+        <span class="blog-category">Geology &amp; AI</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">October 2025 &nbsp;·&nbsp; 6 min read</div>
+        <div class="blog-title">Why geologists and ML engineers need to talk more</div>
+        <p class="blog-excerpt">
+          After four years working between two worlds I've noticed the same
+          miscommunication happen over and over. Here's a translator's guide
+          to the most common misunderstandings.
+        </p>
+        <button class="blog-read-more" onclick="openModal('modal-3')">Read more ↗</button>
+      </div>
+    </div>
+    <!-- ══ BLOG POST END ════════════════════════════════════════ -->
+
+    <div class="blog-card placeholder">+ More posts coming soon</div>
+
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       MODALS — one per blog post.
+       id must match the onclick on its card above.
+  ════════════════════════════════════════════════════════════ -->
+
+  <!-- ══ MODAL START ══════════════════════════════════════════ -->
+  <div class="blog-modal-overlay" id="modal-1" onclick="handleOverlayClick(event,'modal-1')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-post-category">Research</div>
+          <div class="modal-post-title">What does it actually mean to "adapt" a neural network to a new domain?</div>
+          <div class="modal-post-meta">January 2026 &nbsp;·&nbsp; 5 min read</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('modal-1')">✕</button>
+      </div>
+
+      <!-- ── YOUR FULL POST TEXT GOES HERE ─────────────────────
+           Use <p>, <h3>, <blockquote>, <img> tags
+      ──────────────────────────────────────────────────────── -->
+      <div class="modal-content-body">
+
+        <p>
+          When I first started working on domain adaptation for geological data,
+          I thought it would be straightforward. You take a model trained on synthetic
+          X-ray CT scans of drill cores, and you apply it to real ones. Simple, right?
+        </p>
+        <p>
+          Wrong. The reality is that synthetic and real data differ in ways that are
+          almost invisible to the human eye but catastrophic for a neural network.
+          Lighting artefacts, scanner noise, mineral density variations — a model
+          trained on clean synthetic images sees the real world as almost unrecognisable.
+        </p>
+
+        <h3>What "domain" actually means</h3>
+        <p>
+          In machine learning, a "domain" is essentially the statistical distribution
+          of your data. Two datasets from different domains have different distributions —
+          even if they show the same thing. A model that has learned from one distribution
+          will fail silently on another.
+        </p>
+
+        <blockquote>
+          The model doesn't know it's failing. It just gives you confidently wrong answers.
+        </blockquote>
+
+        <p>
+          This is exactly what happened with our pyrite segmentation model. Trained on
+          synthetic XCT images, it achieved over 90% accuracy — then promptly fell apart
+          on real drill core data from Orexplore's scanner.
+        </p>
+
+        <h3>The adversarial solution</h3>
+        <p>
+          The approach we used is called adversarial unsupervised domain adaptation.
+          The idea is to train a feature extractor that is deliberately confused —
+          it should produce features that look the same whether they came from the
+          synthetic domain or the real domain. A discriminator network tries to tell
+          them apart; the feature extractor tries to fool it. The result is a model
+          that genuinely generalises — not just memorising synthetic patterns, but
+          learning something deeper about the structure of the data.
+        </p>
+        <p>
+          That's the real meaning of "adaptation": not just running on new data,
+          but genuinely understanding it.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <!-- ══ MODAL END ════════════════════════════════════════════ -->
+
+
+  <!-- ══ MODAL START ══════════════════════════════════════════ -->
+  <div class="blog-modal-overlay" id="modal-2" onclick="handleOverlayClick(event,'modal-2')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-post-category">Life &amp; PhD</div>
+          <div class="modal-post-title">Five things nobody tells you about doing an industrial PhD</div>
+          <div class="modal-post-meta">December 2025 &nbsp;·&nbsp; 4 min read</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('modal-2')">✕</button>
+      </div>
+      <div class="modal-content-body">
+
+        <p>
+          When I started my industrial PhD — split between Örebro University and
+          Orexplore AB — I thought I had the best of both worlds. Academic freedom,
+          real industrial problems, a salary, and a clear application for my research.
+          I was right. But there were a few things nobody warned me about.
+        </p>
+
+        <h3>1. You have two bosses</h3>
+        <p>
+          Not literally, but in spirit. Your university supervisor cares about rigour,
+          publications, and contributions to knowledge. Your industry partner cares about
+          solving problems that matter to the business. These goals usually align —
+          but when they don't, you're the one navigating it.
+        </p>
+
+        <h3>2. The calendar becomes your enemy</h3>
+        <p>
+          Industry sprints, academic deadlines, teaching commitments, and paper submission
+          windows do not naturally synchronise. You will learn to negotiate — with others
+          and with yourself.
+        </p>
+
+        <h3>3. Your research becomes more honest</h3>
+        <p>
+          Having to defend your methods to engineers who will actually use the results is
+          humbling. It's also one of the best things that can happen to your research.
+          It forces you to be clear, rigorous, and practical.
+        </p>
+
+        <blockquote>
+          The best question I ever got asked was from a geologist: "But does it actually work on our data?"
+        </blockquote>
+
+        <h3>4. You become a translator</h3>
+        <p>
+          Between ML people and domain experts. Between academia and industry.
+          This skill takes years to develop and is worth more than almost
+          anything else you'll learn during a PhD.
+        </p>
+
+        <h3>5. It's worth it</h3>
+        <p>
+          The complexity is the point. If you want to do research that actually matters
+          outside of academia, this is one of the best ways to do it.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <!-- ══ MODAL END ════════════════════════════════════════════ -->
+
+
+  <!-- ══ MODAL START ══════════════════════════════════════════ -->
+  <div class="blog-modal-overlay" id="modal-3" onclick="handleOverlayClick(event,'modal-3')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-post-category">Geology &amp; AI</div>
+          <div class="modal-post-title">Why geologists and ML engineers need to talk more</div>
+          <div class="modal-post-meta">October 2025 &nbsp;·&nbsp; 6 min read</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('modal-3')">✕</button>
+      </div>
+      <div class="modal-content-body">
+
+        <p>
+          After four years sitting between two worlds — machine learning research and
+          applied geoscience — I've noticed the same misunderstandings come up again
+          and again. Here's a translator's guide.
+        </p>
+
+        <h3>"95% accuracy" means very different things</h3>
+        <p>
+          To an ML engineer, 95% accuracy on a test set is a strong result.
+          To a geologist making drilling decisions worth millions of dollars,
+          5% errors in the wrong places can be catastrophic. Always ask what the
+          failure modes look like, not just the headline number.
+        </p>
+
+        <h3>Geologists think in 3D — models often don't</h3>
+        <p>
+          Most computer vision models work on 2D images. Drill core data is inherently
+          three-dimensional. When an ML engineer says "I'll just take slices",
+          a geologist hears "I'll throw away half the information". Both are right.
+          The solution is to talk about what information is actually critical.
+        </p>
+
+        <blockquote>
+          Domain expertise isn't a nice-to-have. It's the difference between a model
+          that works in the lab and one that works in the mine.
+        </blockquote>
+
+        <h3>Labels are expensive in geoscience</h3>
+        <p>
+          In computer vision, you can crowdsource labels. In geoscience, labelling a
+          single drill core sample requires a trained geologist and hours of careful work.
+          ML engineers need to understand this constraint — it changes which algorithms
+          are appropriate entirely.
+        </p>
+
+        <p>
+          The good news is these gaps are closeable. The key is patience, genuine
+          curiosity about each other's field, and the willingness to say:
+          "I don't understand — can you explain that differently?"
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <!-- ══ MODAL END ════════════════════════════════════════════ -->
+
+
+  <!-- Modal JavaScript — no need to edit -->
+  <script>
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+    }
+    // Click outside the box to close
+    function handleOverlayClick(e, id) {
+      if (e.target === e.currentTarget) closeModal(id);
+    }
+    // Escape key closes any open modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.blog-modal-overlay.open').forEach(m => {
+          m.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+    });
+  </script>
+
+</section>

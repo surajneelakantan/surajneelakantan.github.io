@@ -1,0 +1,170 @@
+<!-- ═══════════════════════════════════════════════════════════
+     sections/publications.html
+     To add a paper → copy one .pub-item block
+     Badges: badge-journal | badge-conference | badge-workshop
+     Venue:  class="venue journal" for red border (journals)
+     PDF:    uncomment the paper-link and add your URL
+════════════════════════════════════════════════════════════ -->
+<section id="research">
+  <style>
+    #research { background: var(--bg); }
+
+    .pub-item {
+      display: grid; grid-template-columns: 65px 1fr auto;
+      gap: 1.8rem; align-items: start;
+      padding: 1.4rem 0; border-bottom: 1px solid var(--border);
+      transition: padding-left .2s;
+    }
+    .pub-item:hover { padding-left: .5rem; }
+    .pub-year  { font-family: var(--font-mono); font-size: .78rem; color: var(--accent); padding-top: .1rem; }
+    .pub-title { font-family: var(--font-head); font-size: .98rem; line-height: 1.4; margin-bottom: .3rem; }
+    .pub-auth  { font-size: .8rem; color: var(--muted); margin-bottom: .4rem; }
+    .venue     { display: inline-block; font-size: .7rem; font-family: var(--font-mono); letter-spacing: .05em; padding: .18rem .55rem; border: 1px solid var(--border); color: var(--muted); border-radius: 2px; }
+    .venue.journal { border-color: var(--accent); color: var(--accent); }
+    .paper-link { display: inline-flex; align-items: center; gap: .3rem; margin-left: .5rem; font-size: .7rem; font-family: var(--font-mono); color: var(--accent); }
+    .paper-link:hover { text-decoration: underline; }
+    .pub-badge { font-size: .66rem; font-family: var(--font-mono); letter-spacing: .06em; padding: .22rem .55rem; border-radius: 2px; white-space: nowrap; align-self: start; }
+    .badge-journal    { background: var(--accent); color: white; }
+    .badge-conference { background: var(--dark);   color: white; }
+    .badge-workshop   { background: #6c757d;        color: white; }
+
+    #research .section-num { color: rgba(255,255,255,.4); }
+    #research h2 { color: white; }
+
+    .thesis-section {
+      background: var(--dark); color: white; padding: 4rem 3rem; margin-top: 3rem;
+    }
+    .thesis-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 4px; padding: 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    }
+    .thesis-title { font-family: var(--font-head); font-size: 1.45rem; line-height: 1.3; font-style: italic; margin-bottom: 1rem; }
+    .thesis-text  { font-size: .93rem; line-height: 1.75; color: rgba(255,255,255,.65); }
+
+    .contrib        { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .contrib:last-child { border-bottom: none; }
+    .contrib-label  { font-family: var(--font-mono); font-size: .65rem; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .25rem; }
+    .contrib-title  { font-size: .88rem; color: rgba(255,255,255,.82); line-height: 1.4; }
+
+    @media (max-width: 900px) { .thesis-card { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+    @media (max-width: 900px) { .pub-item { grid-template-columns: 1fr; gap: .4rem; } }
+  </style>
+
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Research</h2>
+  </div>
+
+  <!-- Copy a .pub-item block to add a new paper -->
+
+  <div class="pub-item">
+    <div class="pub-year">2026</div>
+    <div>
+      <div class="pub-title">Human-in-the-Loop Dual-Branch Architecture for Image Super-Resolution</div>
+      <div class="pub-auth">Neelakantan, S., Längkvist, M., &amp; Loutfi, A.</div>
+      <span class="venue journal">Journal of Visual Communication and Image Representation</span>
+      <!-- <a href="YOUR_PDF_URL" class="paper-link" target="_blank">↗ PDF</a> -->
+    </div>
+    <span class="pub-badge badge-journal">Journal</span>
+  </div>
+
+  <div class="pub-item">
+    <div class="pub-year">2025</div>
+    <div>
+      <div class="pub-title">DR-SCAN: An Interpretable Dual-Branch Residual Spatial and Channel Attention Network for Remote Sensing and Geoscience Image Super-Resolution</div>
+      <div class="pub-auth">Neelakantan, S., Längkvist, M., &amp; Loutfi, A.</div>
+      <span class="venue">ICLR 2025 · ML4RS Workshop · Singapore</span>
+      <!-- <a href="YOUR_PDF_URL" class="paper-link" target="_blank">↗ PDF</a> -->
+    </div>
+    <span class="pub-badge badge-workshop">Workshop</span>
+  </div>
+
+  <div class="pub-item">
+    <div class="pub-year">2025</div>
+    <div>
+      <div class="pub-title">Domain-Aware Tabular Data Augmentation Using Large Language Models</div>
+      <div class="pub-auth">Neelakantan, S., Längkvist, M., &amp; Loutfi, A.</div>
+      <span class="venue">EurIPS 2025 · AI for Tabular Data Workshop</span>
+      <!-- <a href="YOUR_PDF_URL" class="paper-link" target="_blank">↗ PDF</a> -->
+    </div>
+    <span class="pub-badge badge-workshop">Workshop</span>
+  </div>
+
+  <div class="pub-item">
+    <div class="pub-year">2024</div>
+    <div>
+      <div class="pub-title">Machine Learning for Lithology Analysis using a Multi-Modal Approach of Integrating XRF and XCT data</div>
+      <div class="pub-auth">Neelakantan, S., Hansson, A., Norell, J., Schött, J., Längkvist, M., &amp; Loutfi, A.</div>
+      <span class="venue">Scandinavian Conference on AI (SCAI) 2024</span>
+      <!-- <a href="YOUR_PDF_URL" class="paper-link" target="_blank">↗ PDF</a> -->
+    </div>
+    <span class="pub-badge badge-conference">Conference</span>
+  </div>
+
+  <div class="pub-item">
+    <div class="pub-year">2024</div>
+    <div>
+      <div class="pub-title">Neural Network Approach for Shape-Based Euhedral Pyrite Identification in X-ray CT Data with Adversarial Unsupervised Domain Adaptation</div>
+      <div class="pub-auth">Neelakantan, S., Norell, J., Hansson, A., Längkvist, M., &amp; Loutfi, A.</div>
+      <span class="venue journal">Applied Computing and Geosciences, 21, 100153</span>
+      <!-- <a href="YOUR_PDF_URL" class="paper-link" target="_blank">↗ PDF</a> -->
+    </div>
+    <span class="pub-badge badge-journal">Journal</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DOCTORAL THESIS
+       ═══════════════════════════════════════════════════════════ -->
+
+  <div class="thesis-section">
+    <div class="section-header">
+      <span class="section-num"></span>
+      <h2>Doctoral Thesis</h2>
+    </div>
+
+    <div class="thesis-card">
+
+      <div>
+        <div class="thesis-title">
+          "Learning Beneath the Surface: A Study of Machine Learning Across Geological Data Domains"
+        </div>
+        <p class="thesis-text">
+          This thesis presents an integrated framework addressing three fundamental challenges
+          in applying deep learning to geological data: domain adaptation, multi-modal sensor
+          fusion, and interpretable image super-resolution for geoscience applications.
+        </p>
+        <p class="thesis-text" style="margin-top:.9rem;">
+          Conducted within the Industrial Graduate School Collaborative AI and Robotics,
+          funded by the Swedish Knowledge Foundation, in partnership with Orexplore Technologies.
+        </p>
+        <div class="status-badge dark" style="margin-top:1.4rem;">
+          <span class="status-dot"></span>
+          Defense scheduled · June 2026 · Örebro University
+        </div>
+      </div>
+
+      <!-- Copy a .contrib block to add more -->
+      <div>
+        <div class="contrib">
+          <div class="contrib-label">Theme I · Domain Adaptation</div>
+          <div class="contrib-title">Adversarial unsupervised domain adaptation for euhedral pyrite segmentation in X-ray CT data</div>
+        </div>
+        <div class="contrib">
+          <div class="contrib-label">Theme II · Domain Integration</div>
+          <div class="contrib-title">Multi-modal fusion of XRF and XCT data for improved lithology classification</div>
+        </div>
+        <div class="contrib">
+          <div class="contrib-label">Theme III · Domain Enhancement (DR-SCAN)</div>
+          <div class="contrib-title">Interpretable dual-branch residual attention network for image super-resolution</div>
+        </div>
+        <div class="contrib">
+          <div class="contrib-label">Theme IIIb · Human-in-the-Loop</div>
+          <div class="contrib-title">Inference-time controllable super-resolution via branch-weight tuning</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+

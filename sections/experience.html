@@ -1,0 +1,86 @@
+<!-- ═══════════════════════════════════════════════════════════
+     sections/experience.html
+     To add a job   → copy one .cv-item block
+     To add a skill → copy one <span class="chip"> tag
+════════════════════════════════════════════════════════════ -->
+<section id="experience">
+  <style>
+    #experience { background: var(--bg); }
+
+    .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .cv-section-label {
+      font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.3rem; padding-bottom: .7rem; border-bottom: 1px solid var(--border);
+    }
+    .cv-item       { margin-bottom: 1.5rem; }
+    .cv-item-title { font-weight: 500; margin-bottom: .18rem; }
+    .cv-item-sub   { font-size: .82rem; color: var(--muted); margin-bottom: .35rem; }
+    .cv-item-desc  { font-size: .83rem; line-height: 1.6; color: #5a5048; }
+    .chip-group    { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+    @media (max-width: 900px) { .cv-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  </style>
+
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Experience &amp; Skills</h2>
+  </div>
+
+  <div class="cv-grid">
+
+    <!-- Left: work history — copy a .cv-item to add a job -->
+    <div>
+      <div class="cv-section-label">Work History</div>
+
+      <div class="cv-item">
+        <div class="cv-item-title">Industrial PhD Student</div>
+        <div class="cv-item-sub">Orexplore AB · Apr 2021 – Aug 2024 · Kista, Sweden</div>
+        <div class="cv-item-desc">Deep learning on XCT and XRF sensor data for mineral segmentation and lithology classification. Multi-disciplinary collaboration with geologists.</div>
+      </div>
+
+      <div class="cv-item">
+        <div class="cv-item-title">Master Thesis Student</div>
+        <div class="cv-item-sub">HemoCue AB · Dec 2019 – Sep 2020 · Halmstad</div>
+        <div class="cv-item-desc">CNN-based WBC classification — 94% accuracy, 6% above baseline. Implemented 4 architectures in Keras.</div>
+      </div>
+
+      <div class="cv-item">
+        <div class="cv-item-title">Content Analyst</div>
+        <div class="cv-item-sub">Keystone Automotive Operations · 2017 – 2018 · Bengaluru</div>
+        <div class="cv-item-desc">SQL-driven data quality across 5,000+ automotive SKUs. Automated database updates with MySQL procedures.</div>
+      </div>
+    </div>
+
+    <!-- Right: skills — add a chip to add a skill -->
+    <div>
+      <div class="cv-section-label">Technical Skills</div>
+      <div class="chip-group">
+        <span class="chip">Python</span>
+        <span class="chip">PyTorch</span>
+        <span class="chip">TensorFlow</span>
+        <span class="chip">Keras</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Power BI</span>
+        <span class="chip">MLflow</span>
+        <span class="chip">Docker</span>
+        <span class="chip">Git</span>
+        <span class="chip">Azure</span>
+        <span class="chip">FAISS</span>
+        <span class="chip">RAG / LLMs</span>
+        <span class="chip">OpenCV</span>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <div class="cv-section-label">Languages</div>
+        <div class="chip-group">
+          <span class="chip">English</span>
+          <span class="chip">Swedish</span>
+          <span class="chip">Kannada</span>
+          <span class="chip">Tamil</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
