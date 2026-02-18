@@ -28,8 +28,8 @@
     .badge-conference { background: var(--dark);   color: white; }
     .badge-workshop   { background: #6c757d;        color: white; }
 
-    #research .section-num { color: rgba(255,255,255,.4); }
-    #research h2 { color: white; }
+    #research .section-num { color: var(--accent); }
+    #research h2 { color: var(--ink); }
 
     .thesis-section {
       background: var(--dark); color: white; padding: 4rem 3rem; margin-top: 3rem;
@@ -57,7 +57,7 @@
     <h2>Research</h2>
   </div>
 
-  <!-- Copy a .pub-item block to add a new paper -->
+  <div class="subsection-label">Publications</div>
 
   <div class="pub-item">
     <div class="pub-year">2026</div>
@@ -132,8 +132,8 @@
         </div>
         <p class="thesis-text">
           This thesis presents an integrated framework addressing three fundamental challenges
-          in applying deep learning to geological data: domain adaptation, multi-modal sensor
-          fusion, and interpretable image super-resolution for geoscience applications.
+          in applying deep learning to geological data: domain adaptation, inegrating different geological 
+          data domains, and enhancing geological image data for geoscience applications.
         </p>
         <p class="thesis-text" style="margin-top:.9rem;">
           Conducted within the Industrial Graduate School Collaborative AI and Robotics,
@@ -153,15 +153,14 @@
         </div>
         <div class="contrib">
           <div class="contrib-label">Theme II · Domain Integration</div>
-          <div class="contrib-title">Multi-modal fusion of XRF and XCT data for improved lithology classification</div>
+          <div class="contrib-title">Integrating XRF and XCT data for improved lithology classification and using geological knowledge
+            LLMs have for creating synthic data for under-represented classes</div>
+          </div>
         </div>
         <div class="contrib">
-          <div class="contrib-label">Theme III · Domain Enhancement (DR-SCAN)</div>
-          <div class="contrib-title">Interpretable dual-branch residual attention network for image super-resolution</div>
-        </div>
-        <div class="contrib">
-          <div class="contrib-label">Theme IIIb · Human-in-the-Loop</div>
-          <div class="contrib-title">Inference-time controllable super-resolution via branch-weight tuning</div>
+          <div class="contrib-label">Theme III · Domain Enhancement</div>
+          <div class="contrib-title">Interpretable dual-branch residual attention network for image super-resolution and
+            Human-in-the-Loop Inference-time controllable super-resolution via branch-weight tuning </div>
         </div>
       </div>
 
