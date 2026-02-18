@@ -51,15 +51,26 @@
     <!-- Copy this card to add a new project -->
     <div class="project-card">
       <div class="project-tag">NLP · RAG · LLM</div>
-      <div class="project-title">RAG-Driven Course Planning Chatbot</div>
+      <div class="project-title">SMARTER.AI — Intelligent Course Generation for Professional Learning</div>
+      <div style="font-size:.75rem; color:var(--muted); font-style:italic; margin-top:.3rem;">Örebro University · ARC Center</div>
       <p class="project-desc">
-        Chatbot helping professionals find courses matching career goals using
-        retrieval-augmented generation over university catalogues.
+        Learning is not one-size-fits-all. SMARTER.AI ss an intelligent course generation chatbot
+        that builds personalized, constraint-aware learning journeys from a rich repository of courses from Örebro University.
+      </p>
+      <p class="project-desc" style="margin-top:.8rem;">
+        <strong style="font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink);">How it works</strong><br>
+        The system automatically crawls and indexes course materials hosted on Nextcloud, classifying each resource — slides, videos, 
+        quizzes, readings — and enriching it with AI-generated metadata using LLaMA 3. At its core, a hybrid retrieval engine combines 
+        semantic search (Sentence-BERT embeddings) with lexical matching (TF-IDF) to surface the most relevant modules. A 
+        constraint-aware selection algorithm then optimizes the final course plan against your time budget, skill level, and preferred 
+        format.
+        <br><br>
+        The result: a personalized learning journey, whether you need a focused two-hour crash course or a structured multi-week deep dive.
+
       </p>
       <div class="project-stack">
         <span class="chip">Python</span>
         <span class="chip">LLaMA-3</span>
-        <span class="chip">FAISS</span>
         <span class="chip">RAG</span>
       </div>
       <!-- <a href="https://github.com/surajneelakantan/REPO" class="project-link" target="_blank">↗ GitHub</a> -->
@@ -67,30 +78,30 @@
 
     <div class="project-card">
       <div class="project-tag">Deep Learning · Medical Imaging</div>
-      <div class="project-title">White Blood Cell Classification</div>
-      <p class="project-desc">
-        Master thesis at HemoCue AB. Four CNN architectures for differential WBC
-        classification — 94% accuracy, 6% above baseline.
+      <div class="project-title">White Blood Cell Analysis Using Deep Learning</div>
+      <div style="font-size:.75rem; color:var(--muted); font-style:italic; margin-top:.3rem;">Master's Thesis · Halmstad University · 2020</div>
+      <p class="project-desc" style="margin-top:.8rem;">
+        This project was carried out in collaboration with HemoCue AB, a global leader in point-of-care hematology testing, 
+        with the goal of developing a deep learning pipeline for their HemoCue® WBC DIFF System — a medical device that measures 
+        total white blood cell count and differential in minutes.
       </p>
-      <div class="project-stack">
+      <p class="project-desc" style="margin-top:.6rem;">
+        The system works with data captured by an autofocus camera that generates a stack of images per detected cell at varying 
+        focal lengths. The core challenge was to build CNN-based models capable of both identifying white blood cells (distinguishing 
+        single cells from doubles, triples, and debris) and differentiating between the major WBC types: neutrophils, lymphocytes, 
+        monocytes, and eosinophils.
+      </p>
+      <p class="project-desc" style="margin-top:.6rem;">
+        Two classification strategies were explored — a standard multi-class CNN and a One-vs-All approach — alongside novel CNN 
+        architectures that leveraged multi-focal image stacks as multi-channel and multi-input networks. The final integrated model 
+        demonstrated strong performance across both identification and differential classification tasks, validated against a clinical 
+        reference analyzer and meeting industry-standard error margin requirements.
+      </p>
+      <div class="project-stack" style="margin-top:1rem;">
         <span class="chip">Keras</span>
         <span class="chip">CNN</span>
         <span class="chip">Transfer Learning</span>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-tag">Geoscience · Computer Vision</div>
-      <div class="project-title">DR-SCAN Super-Resolution</div>
-      <p class="project-desc">
-        Dual-branch residual attention network for geoscience image super-resolution.
-        Competitive PSNR/SSIM on UCMerced and DeepRock-SR datasets.
-      </p>
-      <div class="project-stack">
-        <span class="chip">PyTorch</span>
-        <span class="chip">Attention</span>
-        <span class="chip">SISR</span>
-        <span class="chip">Remote Sensing</span>
+        <span class="chip">Medical Imaging</span>
       </div>
     </div>
 
@@ -110,15 +121,6 @@
         Co-developed with Prof. Amy Loutfi. Responsible for computer vision modules:
         semantic segmentation, super-resolution, transfer learning. Designed lectures,
         labs, and exam questions.
-      </p>
-    </div>
-
-    <div class="course-item">
-      <div class="course-meta">Örebro University · Guest Lecturer</div>
-      <div class="course-title">Machine Learning for Geoscience</div>
-      <p class="course-desc">
-        Guest lectures on deep learning for geological data challenges — domain
-        adaptation, multi-modal fusion, and super-resolution for drill-core imaging.
       </p>
     </div>
 

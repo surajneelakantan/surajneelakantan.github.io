@@ -62,19 +62,14 @@
        3. Uncomment the <img> line below
     ──────────────────────────────────────────────────────────── */
     .avatar-wrap {
-      width: 140px; height: 140px; border-radius: 50%;
+      width: 260px; height: 260px; border-radius: 50%;
       border: 3px solid rgba(255,255,255,.25);
       margin: 0 auto 1.8rem; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 6px rgba(255,255,255,.08);
+      box-shadow: 0 0 0 10px rgba(255,255,255,.08);
     }
-    /*.avatar-initials { font-family: var(--font-head); font-size: 2.8rem; color: white; }*/
 
-    .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2rem; }
-    .stat-num   { font-family: var(--font-head); font-size: 1.9rem; color: white; display: block; }
-    .stat-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-
-    .hero-affil        { margin-top: 1.8rem; font-size: .76rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+    .hero-affil        { margin-top: 1.2rem; font-size: .76rem; color: rgba(255,255,255,.55); line-height: 1.6; }
     .hero-affil strong { color: white; display: block; font-size: .83rem; }
 
     @media (max-width: 900px) {
@@ -88,9 +83,8 @@
     <div class="hero-tag">PhD Candidate · Örebro University · 2026</div>
     <h1>Suraj<br><em>Neelakantan</em></h1>
     <p class="hero-desc">
-      Deep learning researcher at the intersection of geology, computer vision,
-      and machine learning. Building intelligent systems that see beneath the
-      surface of geological data.
+     My research focuses on Applied Machine Learning and Deep Learning.<br>
+     Outside research, interests include sports, non-fiction, science fiction and crime novels, and psytrance music.
     </p>
     <div class="hero-ctas">
       <button class="btn btn-dark" onclick="showSection('publications')">View Publications</button>
@@ -109,22 +103,12 @@
   <div class="hero-right">
     <div class="hero-card">
       <div class="avatar-wrap">
-        <span class="avatar-initials">SN</span>
-        <img src="me.jpeg" alt="Suraj Neelakantan, PhD candidate at Örebro University, professional headshot" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Papers</span></div>
-        <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Years</span></div>
-        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Themes</span></div>
+        <img src="me.jpeg" alt="Suraj Neelakantan, PhD candidate at Örebro University" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="hero-affil">
-        <strong>Örebro University &amp; Orexplore AB</strong>
-        Industrial PhD · Computer Science<br/>
-        Supervisors: Prof. Amy Loutfi &amp; Dr. Martin Längkvist
-      </div>
-      <div class="status-badge dark" style="margin-top:1.4rem;">
-        <span class="status-dot"></span>
-        Defense: June 2026
+        <strong>Örebro University &amp; </strong>
+        PhD Candidate · Computer Science<br/>
+        
       </div>
     </div>
   </div>
