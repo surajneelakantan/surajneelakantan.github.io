@@ -6,6 +6,15 @@
   <title>Suraj Neelakantan — Deep Learning Researcher</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZJS1EPF7Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QZJS1EPF7Y');
+  </script>
 </head>
 <body>
 
@@ -21,16 +30,32 @@
     <div class="nav-links">
       <button onclick="showSection('hero')"               class="active">Home</button>
       <button onclick="showSection('about')"              class="hide-mobile">About</button>
-      <button onclick="showSection('research')"       class="hide-mobile">Research</button>
+      <button onclick="showSection('research')"           class="hide-mobile">Research</button>
       <button onclick="showSection('projects-teaching')"  class="hide-mobile">Projects &amp; Teaching</button>
       <button onclick="showSection('experience')"         class="hide-mobile">Experience</button>
       <button onclick="showSection('contact')"            class="hide-mobile">Contact</button>
       <!-- <button onclick="showSection('blog')"               class="hide-mobile">Blog</button> -->
 
       <!-- CV download — update filename to match your PDF -->
-      <a href="Suraj_Neelakantan.pdf" download class="nav-cv">↓ CV</a>
+      <a href="Suraj_Neelakantan.pdf" download class="nav-cv hide-mobile">↓ CV</a>
+
+      <!-- Hamburger — only visible on mobile -->
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu">
+    <button onclick="navToMobile('hero')">Home</button>
+    <button onclick="navToMobile('about')">About</button>
+    <button onclick="navToMobile('research')">Research</button>
+    <button onclick="navToMobile('projects-teaching')">Projects &amp; Teaching</button>
+    <button onclick="navToMobile('experience')">Experience</button>
+    <button onclick="navToMobile('contact')">Contact</button>
+    <a href="Suraj_Neelakantan.pdf" download class="mobile-cv">↓ Download CV</a>
+  </div>
 
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -75,6 +100,17 @@
       { id: 'contact',           file: 'sections/contact.html'           },
       // { id: 'blog',              file: 'sections/blog.html'              },
     ];
+
+    // ── Mobile menu ───────────────────────────────────────────
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.querySelector('.nav-hamburger').classList.toggle('open');
+    }
+    function navToMobile(id) {
+      showSection(id);
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('open');
+    }
 
     // ── showSection ───────────────────────────────────────────
     // Called by every nav button. Shows the requested section,
